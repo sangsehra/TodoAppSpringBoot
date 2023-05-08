@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+
+<h2>Edit Todo</h2>
+<form th:action="@{/todos/{id}/edit(id=${todo.id})}" th:object="${todo}" method="post">
+    <label>
+        Task: <input type="text" th:field="*{title}" placeholder="title"/>
+    </label>
+    <br/>
+    <label>
+        Status: <input type="text" th:field="*{status}" placeholder="status"/>
+    </label>
+    <label>
+        Description: <input type="text" th:field="*{description}" placeholder="description"/>
+    </label>
+  <button type="submit">Save Changes</button>
+</form>
+</html>
