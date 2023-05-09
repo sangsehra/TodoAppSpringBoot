@@ -14,14 +14,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
-@Controller
+@Controller("/todo")
 @NoArgsConstructor
 @AllArgsConstructor
 public class TodoController {
     @Autowired
     private TodoRepository todoRepository;
 
-    @GetMapping("/")
+    @GetMapping
     public String getAllTodos(Model model) {
         List<Todo> todos = todoRepository.findAll();
         model.addAttribute("todos", todos);
