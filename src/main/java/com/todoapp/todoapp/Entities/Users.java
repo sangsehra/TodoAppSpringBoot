@@ -1,13 +1,17 @@
 package com.todoapp.todoapp.Entities;
 
 import lombok.Data;
+import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
+import java.util.Collection;
 
 @Entity
 @Data
 @Table(name = "users")
 public class Users {
+    GrantedAuthority authorities;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -17,4 +21,8 @@ public class Users {
 
     @Column
     private String password;
+
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return (Collection<? extends GrantedAuthority>) this.authorities;
+    }
 }

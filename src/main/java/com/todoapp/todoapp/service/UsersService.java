@@ -9,6 +9,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 @Slf4j
 @AllArgsConstructor
@@ -33,10 +35,14 @@ public class UsersService {
     }
 
     public String userlogin(User user){
-        Users existingUser = userRepository.getUsersByName(user.getName()).get();
+        Users existingUser = userRepository.getUsersBytttName(user.getName());
         if(passwordUtil.passwordChecker(existingUser.getPassword(),user.getPassword())){
             return "user Logged-in";
         }
         return "Log-in failed";
+    }
+
+    public Users findByUsername(String username) {
+        return userRepository.findByName(username).get();
     }
 }

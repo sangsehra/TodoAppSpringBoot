@@ -22,6 +22,6 @@ public class PasswordUtil {
     }
 
     public boolean passwordChecker(String existingPassword, String inputPassword) {
-        return Objects.equals(encryptPassword(existingPassword),encryptPassword(inputPassword));
+        return Objects.equals(existingPassword,encryptPassword(inputPassword));
     }
 }
