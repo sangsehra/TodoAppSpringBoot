@@ -24,4 +24,8 @@ public class Todo {
 
     @Column
     private String description;
+
+    @Column
+    private Integer userId;
+
 }

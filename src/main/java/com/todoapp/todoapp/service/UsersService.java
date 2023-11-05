@@ -5,6 +5,7 @@ import com.todoapp.todoapp.POJO.User;
 import com.todoapp.todoapp.Repository.UserRepository;
 import com.todoapp.todoapp.utils.PasswordUtil;
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,14 +14,11 @@ import java.util.Optional;
 
 @Service
 @Slf4j
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class UsersService {
 
-    @Autowired
-    UserRepository userRepository;
-
-    @Autowired
-    PasswordUtil passwordUtil;
+    private final UserRepository userRepository;
+    private final PasswordUtil passwordUtil;
     public void createUser(User user){
         Users userEntity = createUserEntity(user);
         userRepository.save(userEntity);
@@ -35,7 +33,11 @@ public class UsersService {
     }
 
     public String userlogin(User user){
-        Users existingUser = userRepository.getUsersBytttName(user.getName());
+        Optional<Users> optionalUser = userRepository.findByName(user.getName());
+        Users existingUser = null;
+        if(optionalUser.isPresent()){
+            existingUser =optionalUser.get();
+        }
         if(passwordUtil.passwordChecker(existingUser.getPassword(),user.getPassword())){
             return "user Logged-in";
         }
